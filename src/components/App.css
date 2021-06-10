@@ -1,0 +1,13 @@
+body {
+  font-family: 'Spartan', sans-serif;
+}
+
+.calculator {
+  width: 22%;
+  margin: 5% auto 0;
+}
+
+.keypad {
+  padding: 7% 8%;
+  border-radius: 10px;
+}

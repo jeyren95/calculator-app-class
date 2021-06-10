@@ -1,0 +1,39 @@
+.header {
+  margin-bottom: 3%;
+}
+
+.header h3, .header span {
+  font-weight: 700;
+}
+
+.header h3 {
+  margin-top: 5%;
+}
+
+
+.theme-switcher span {
+  font-size: 12px;
+}
+
+.theme-choices {
+  text-align: right;
+}
+
+.theme-choices span {
+  letter-spacing: 5.7px;
+}
+
+.theme-label {
+  text-align: center;
+}
+
+
+.theme-toggle-button {
+  width: 36%;
+  border-radius: 15px;
+}
+
+.fa-circle {
+  position: relative;
+  top: 2.3%;
+}

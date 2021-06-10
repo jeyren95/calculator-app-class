@@ -57,17 +57,23 @@ class App extends React.Component {
       //Concatenate the clicked number to the second number
   inputSelectedNumber = (selectedNumber) => {
     if (this.state.selectedFunction === "" && this.state.calculationResult === "") {
-      let concatenatedNumber = this.state.firstNumber + selectedNumber
-      this.setState({firstNumber: concatenatedNumber, display: concatenatedNumber})
-      console.log(`First number: ${concatenatedNumber}`)
+      if (this.state.firstNumber.length < 10) {
+        let concatenatedNumber = this.state.firstNumber + selectedNumber
+        this.setState({firstNumber: concatenatedNumber, display: concatenatedNumber})
+        console.log(`First number: ${concatenatedNumber}`)
+      }
     } else if (this.state.selectedFunction === "" && this.state.calculationResult !== "") {
-      let concatenatedNumber = this.state.firstNumber + selectedNumber
-      this.setState({firstNumber: concatenatedNumber, storedCalculationResult: "", display: concatenatedNumber})
-      console.log(`First number: ${concatenatedNumber}`)
+      if (this.state.firstNumber.length < 10) {
+        let concatenatedNumber = this.state.firstNumber + selectedNumber
+        this.setState({firstNumber: concatenatedNumber, storedCalculationResult: "", display: concatenatedNumber})
+        console.log(`First number: ${concatenatedNumber}`)
+      }
     } else {
-      let concatenatedNumber = this.state.secondNumber + selectedNumber
-      this.setState({secondNumber: concatenatedNumber, display: concatenatedNumber})
-      console.log(`Second number: ${concatenatedNumber}`)
+      if (this.state.secondNumber.length < 10) {
+        let concatenatedNumber = this.state.secondNumber + selectedNumber
+        this.setState({secondNumber: concatenatedNumber, display: concatenatedNumber})
+        console.log(`Second number: ${concatenatedNumber}`)
+      }
     }
   }
 
@@ -96,18 +102,22 @@ class App extends React.Component {
     if (this.state.firstNumber !== "" && this.state.secondNumber !== "") {
       if (this.state.selectedFunction === "+") {
         let result = (parseFloat(this.state.firstNumber) + parseFloat(this.state.secondNumber)).toString()
+        result = result.slice(0, 10)
         this.setState({firstNumber: "", secondNumber: "", selectedFunction: "", storedCalculationResult: result, display: result})
         console.log(`Result: ${result}`)
       } else if (this.state.selectedFunction === "-") {
         let result = (parseFloat(this.state.firstNumber) - parseFloat(this.state.secondNumber)).toString()
+        result = result.slice(0, 10)
         this.setState({firstNumber: "", secondNumber: "", selectedFunction: "", storedCalculationResult: result, display: result})
         console.log(`Result: ${result}`)
       } else if (this.state.selectedFunction === "x") {
         let result = (parseFloat(this.state.firstNumber) * parseFloat(this.state.secondNumber)).toString()
+        result = result.slice(0, 10)
         this.setState({firstNumber: "", secondNumber: "", selectedFunction: "", storedCalculationResult: result, display: result})
         console.log(`Result: ${result}`)
       } else if (this.state.selectedFunction === "/") {
         let result = (parseFloat(this.state.firstNumber) / parseFloat(this.state.secondNumber)).toString()
+        result = result.slice(0, 10)
         this.setState({firstNumber: "", secondNumber: "", selectedFunction: "", storedCalculationResult: result, display: result})
         console.log(`Result: ${result}`)
       }

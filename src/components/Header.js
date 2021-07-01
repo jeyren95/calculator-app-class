@@ -18,7 +18,7 @@ class Header extends React.Component {
 
   renderToggleButtonPosition() {
     if (this.props.selectedTheme === "1") {
-      return "-16%"
+      return "-16.5%"
     } else if (this.props.selectedTheme === "2") {
       return "30%"
     } else {
@@ -59,20 +59,20 @@ class Header extends React.Component {
   render() {
     return (
       <div className="header row">
-        <div className="col-7 app-title">
-          <h3 style={{color: this.renderFontColor()}}>calc</h3>
+        <div className="col-6">
+          <h2 style={{color: this.renderFontColor()}}>calc</h2>
         </div>
-        <div className="col-5 theme-switcher">
+        <div className="col-6 theme-switcher">
           <div className="row theme-choices">
             <span style={{color: this.renderFontColor()}}>1 2 3</span>
           </div>
           <div className="row">
-            <div className="col-7 theme-label">
+            <div className="col-4 theme-label">
               <span style={{color: this.renderFontColor()}}>THEME</span>
             </div>
             <div
             style={{backgroundColor: this.renderToggleBackgroundColor()}}
-            className="col-5 theme-toggle-button">
+            className="col-8 theme-toggle-button">
               <i
               style={{left: this.renderToggleButtonPosition(), color: this.renderToggleButtonColor()}}
               class="fas fa-circle"

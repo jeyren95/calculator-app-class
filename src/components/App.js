@@ -86,12 +86,14 @@ class App extends React.Component {
       //Remove the stored result
       //Set the selected function to the clicked function
   selectFunction = (clickedFunction) => {
-    if (this.state.storedCalculationResult !== "") {
-      this.setState({firstNumber: this.state.storedCalculationResult, storedCalculationResult: "", selectedFunction: clickedFunction})
-    } else {
-      this.setState({selectedFunction: clickedFunction})
+    if (this.state.selectedFunction === "") {
+      if (this.state.storedCalculationResult !== "") {
+        this.setState({firstNumber: this.state.storedCalculationResult, storedCalculationResult: "", selectedFunction: clickedFunction})
+      } else {
+        this.setState({selectedFunction: clickedFunction})
+      }
+      console.log(`${clickedFunction} was clicked`)
     }
-    console.log(`${clickedFunction} was clicked`)
   }
 
 
@@ -175,13 +177,21 @@ class App extends React.Component {
   handlePointClick = () => {
     if (this.state.selectedFunction === "") {
       if (this.state.firstNumber.includes(".") === false) {
-        let floatNumber = this.state.firstNumber + "."
-        this.setState({firstNumber: floatNumber, display: floatNumber})
+        if (this.state.firstNumber !== "") {
+          let floatNumber = this.state.firstNumber + "."
+          this.setState({firstNumber: floatNumber, display: floatNumber})
+        } else {
+          this.setState({firstNumber: "0.", display: "0."})
+        }
       }
     } else {
       if (this.state.secondNumber.includes(".") === false) {
-        let floatNumber = this.state.secondNumber + "."
-        this.setState({secondNumber: floatNumber, display: floatNumber})
+        if (this.state.secondNumber !== "") {
+          let floatNumber = this.state.secondNumber + "."
+          this.setState({secondNumber: floatNumber, display: floatNumber})
+        } else {
+          this.setState({secondNumber: "0.", display: "0."})
+        }
       }
     }
   }

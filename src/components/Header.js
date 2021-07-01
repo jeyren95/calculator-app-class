@@ -75,7 +75,7 @@ class Header extends React.Component {
             className="col-8 theme-toggle-button">
               <i
               style={{left: this.renderToggleButtonPosition(), color: this.renderToggleButtonColor()}}
-              class="fas fa-circle"
+              className="fas fa-circle"
               type="button"
               onClick={this.handleToggleButtonClick}
               >

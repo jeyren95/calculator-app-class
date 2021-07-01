@@ -148,26 +148,21 @@ class App extends React.Component {
   //Third scenario - when user has already clicked the calculation function, and is in the midst of inputting the second number
       //Same mechanism as first scenario, except we make the changes to the second number
   handleDeleteClick = () => {
-    if (this.state.firstNumber !== "" && this.state.selectedFunction === "") {
+    if (this.state.selectedFunction === "") {
       if (this.state.firstNumber.length > 1) {
-        let shortenedNumber = this.state.firstNumber.slice(0, this.state.firstNumber.length - 1)
+        let shortenedNumber = this.state.firstNumber.slice(0, -1)
         this.setState({firstNumber: shortenedNumber, display: shortenedNumber})
-      } else {
+      } else if (this.state.firstNumber.length === 1) {
         this.setState({firstNumber: "", display: "0"})
-      }
-    } else if (this.state.secondNumber === "" && this.state.selectedFunction !== "") {
-      if (this.state.firstNumber.length > 1) {
-        let shortenedNumber = this.state.firstNumber.slice(0, this.state.firstNumber.length - 1)
-        this.setState({firstNumber: shortenedNumber, selectedFunction: "", display: shortenedNumber})
-      } else {
-        this.setState({firstNumber: "", selectedFunction: "", display: "0"})
       }
     } else {
       if (this.state.secondNumber.length > 1) {
         let shortenedNumber = this.state.secondNumber.slice(0, this.state.secondNumber.length - 1)
         this.setState({secondNumber: shortenedNumber, display: shortenedNumber})
-      } else {
+      } else if (this.state.secondNumber.length === 1) {
         this.setState({secondNumber: "", display: "0"})
+      } else if (this.state.secondNumber.length === 0) {
+        this.setState({selectedFunction: ""})
       }
     }
   }

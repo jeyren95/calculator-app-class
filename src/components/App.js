@@ -56,13 +56,13 @@ class App extends React.Component {
   //Third scenario - when the user clicked the calculator function already, meaning that the user wants to input the second number
       //Concatenate the clicked number to the second number
   inputSelectedNumber = (selectedNumber) => {
-    if (this.state.selectedFunction === "" && this.state.calculationResult === "") {
+    if (this.state.selectedFunction === "" && this.state.storedCalculationResult === "") {
       if (this.state.firstNumber.length < 10) {
         let concatenatedNumber = this.state.firstNumber + selectedNumber
         this.setState({firstNumber: concatenatedNumber, display: concatenatedNumber})
         console.log(`First number: ${concatenatedNumber}`)
       }
-    } else if (this.state.selectedFunction === "" && this.state.calculationResult !== "") {
+    } else if (this.state.selectedFunction === "" && this.state.storedCalculationResult !== "") {
       if (this.state.firstNumber.length < 10) {
         let concatenatedNumber = this.state.firstNumber + selectedNumber
         this.setState({firstNumber: concatenatedNumber, storedCalculationResult: "", display: concatenatedNumber})
@@ -79,27 +79,43 @@ class App extends React.Component {
 
 
   //When the user clicks either "+", "-", "x" or "/"
-  //First scenario - if it is a fresh calculation, meaning that the user is not continuing the calculation from a stored result
-      //Just set the state of the selected function to the function that was clicked
-  //Second scenario - if the user is conntinuing the calculation from a stored result
+  //First scenario - if it is a fresh calculation
+      //If no math function has been selected yet (this prevents the math function state from changing when the user clicks a different math function)
+      //and the first number has already been entered (this prevents anything from happening when the user clicks the math function before entering the first number)
+      //Set the state of the selected function to the function that was clicked
+
+      //If no math function has been selected yet, and the first number has not been entered, and the clicked function is a minus sign
+      //Set the state of the first number to negative
+
+      //If a math function has been selected already, and the second number has not been entered, and the clicked function is a minus sign
+      //Set the state of the second number to negative
+  //Second scenario - if the user is continuing the calculation from a stored result
       //Set the first number to the stored result
       //Remove the stored result
       //Set the selected function to the clicked function
   selectFunction = (clickedFunction) => {
-    if (this.state.selectedFunction === "") {
-      if (this.state.storedCalculationResult !== "") {
+    if (this.state.storedCalculationResult !== "") {
+      if (this.state.selectedFunction === "") {
         this.setState({firstNumber: this.state.storedCalculationResult, storedCalculationResult: "", selectedFunction: clickedFunction})
-      } else {
-        this.setState({selectedFunction: clickedFunction})
+        console.log(`${clickedFunction} was clicked.`)
       }
-      console.log(`${clickedFunction} was clicked`)
+    } else {
+      if (this.state.selectedFunction === "" && this.state.firstNumber !== "") {
+        this.setState({selectedFunction: clickedFunction})
+        console.log(`${clickedFunction} was clicked.`)
+      } else if (this.state.selectedFunction === "" && this.state.firstNumber === "" && clickedFunction === "-") {
+        this.setState({firstNumber: "-", display: "-"})
+      } else if (this.state.selectedFunction !== "" && this.state.secondNumber === "" && clickedFunction === "-") {
+        this.setState({secondNumber: "-", display: "-"})
+      }
     }
+
   }
 
 
-  //When the equals sign is clicked, if both firstNumber and secondNumber states are not "", proceed with the calculation
+  //When the equals sign is clicked, only proceed with the calculation if both firstNumber and secondNumber states are not ""
   //Store the calculation result to allow the user the option of using the result to do further calculation
-  //Set the first number and second number back to ""
+  //Set the first number and second number back to "", and also the selected function back to ""
   handleEqualsClick = () => {
     if (this.state.firstNumber !== "" && this.state.secondNumber !== "") {
       if (this.state.selectedFunction === "+") {
@@ -123,7 +139,6 @@ class App extends React.Component {
         this.setState({firstNumber: "", secondNumber: "", selectedFunction: "", storedCalculationResult: result, display: result})
         console.log(`Result: ${result}`)
       }
-
     }
   }
 
@@ -157,7 +172,7 @@ class App extends React.Component {
       }
     } else {
       if (this.state.secondNumber.length > 1) {
-        let shortenedNumber = this.state.secondNumber.slice(0, this.state.secondNumber.length - 1)
+        let shortenedNumber = this.state.secondNumber.slice(0, -1)
         this.setState({secondNumber: shortenedNumber, display: shortenedNumber})
       } else if (this.state.secondNumber.length === 1) {
         this.setState({secondNumber: "", display: "0"})
